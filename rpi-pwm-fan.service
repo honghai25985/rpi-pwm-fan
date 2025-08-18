@@ -1,0 +1,21 @@
+## @file rpi-pwm-fan.service
+## @brief Run the RPi.GPIO PWM fan controller during normal multi-user boot.
+
+[Unit]
+Description=Raspberry Pi CPU temperature PWM fan controller
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/lib/rpi-pwm-fan/rpi_pwm_fan.py
+EnvironmentFile=-/etc/default/rpi-pwm-fan
+Restart=on-failure
+RestartSec=3
+User=root
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
